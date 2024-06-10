@@ -23,7 +23,15 @@ public class Sorting {
 	 * @param <T> class of the object in the array
 	 */
 	public static <T extends Comparable<T>> void selectionsort(T A[]) {
-
+		for(int i=0; i<A.length-1; i++){
+			int m = i;
+			for(int j=i; j<A.length; j++){
+				if(A[m].compareTo(A[j])){
+					m=j;
+				}
+			}
+			if(m!=i){swap(A, i, m);}
+		}
 	}
 
 
@@ -38,7 +46,15 @@ public class Sorting {
 	 * @param A the array to be sorted
 	 */
 	public static void selectionsort(int A[]) {
-
+		for(int i=0; i<A.length-1; i++){
+			int m = i;
+			for(int j=i; j<A.length; j++){
+				if(A[j]<A[m]){
+					m=j;
+				}
+			}
+			if(m!=i){swap(A, i, m);}
+		}
 	}
 
 	/**
@@ -53,7 +69,13 @@ public class Sorting {
 	 * @param <T> class of the object in the array
 	 */
 	public static <T extends Comparable<T>> void insertionsort(T A[]) {
-
+		for(int i=1; i<A.length; i++){
+			int j=i;
+			while(j>1 && A[j].compareTo(A[j-1])){
+				swap(A, j, j-1);
+				j--;
+			}
+		}
 	}
 
 	/**
@@ -67,7 +89,13 @@ public class Sorting {
 	 * @param A the array to be sorted
 	 */
 	public static void insertionsort(int A[]) {
-
+		for(int i=1; i<A.length; i++){
+			int j=i;
+			while(j>1 && A[j] < A[j-1]){
+				swap(A, j, j-1);
+				j--;
+			}
+		}
 	}
 
 	/**
