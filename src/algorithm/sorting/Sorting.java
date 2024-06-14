@@ -26,7 +26,7 @@ public class Sorting {
 		for(int i=0; i<A.length-1; i++){
 			int m = i;
 			for(int j=i; j<A.length; j++){
-				if(A[m].compareTo(A[j])){
+				if(A[m].compareTo(A[j])<0){
 					m=j;
 				}
 			}
@@ -48,7 +48,7 @@ public class Sorting {
 	public static void selectionsort(int A[]) {
 		for(int i=0; i<A.length-1; i++){
 			int m = i;
-			for(int j=i; j<A.length; j++){
+			for(int j=i+1; j<A.length; j++){
 				if(A[j]<A[m]){
 					m=j;
 				}
@@ -71,7 +71,7 @@ public class Sorting {
 	public static <T extends Comparable<T>> void insertionsort(T A[]) {
 		for(int i=1; i<A.length; i++){
 			int j=i;
-			while(j>1 && A[j].compareTo(A[j-1])){
+			while(j>1 && A[j]..compareTo(A[j-1])<0){
 				swap(A, j, j-1);
 				j--;
 			}
@@ -108,8 +108,48 @@ public class Sorting {
 	 * @param A the array to be sorted
 	 * @param <T> class of the object in the array
 	 */
-	public static <T extends Comparable<T>> void mergesort(T A[]) {
-		
+	public static <T extends Comparable<T>> void mergesort(T[] A) {
+		mergesortfunction(A, 0, A.length-1);
+	}
+
+	private static <T extends Comparable<T>> void mergesortfunction(T[] A, int firstIndex, int lastIndex){
+		if(firstIndex<lastIndex){
+			int middleIndex = (firstIndex + lastIndex) / 2;
+			mergesortfunction(A, firstIndex, middleIndex);
+			mergesortfunction(A, middleIndex + 1, lastIndex);
+			merge(A, firstIndex, middleIndex, lastIndex);
+		}
+	}
+
+	private static <T extends Comparable<T>> void merge(T[] A, int firstIndex, int middleIndex, int lastIndex){
+		T[] B = new T [lastIndex-firstIndex+1];
+		int i = firstIndex;//i itera il primo sottoarray
+		int j = middleIndex+1;//j itera il secondo sottoarray
+		int k = 0;//k itera l'array B
+
+		while(i<=middleIndex && j<=lastIndex){//il primo while va a ordinare gli elementi dei due sottoarray
+			if(A[i].compareTo(A[j])<9){// in odine crescente, e si ferma quando uno dei due sottoarray non ha più elementi
+				B[k] = A[i];
+				i++;
+			}else{
+				B[k] = A[j];
+				j++;
+			}
+			k++;
+		}
+		while(i<=middleIndex){//gli altri due while finiscono il lavoro
+			B[k] = A[i];
+			k++;
+			i++;
+		}
+		while(j<=lastIndex){
+			B[k] = A[j];
+			k++;
+			j++;
+		}
+		for(k=0; k <lastIndex-firstIndex+1; k++){//il for trasferisce tutti gli elementi di B in A
+			A[firstIndex+k] = B[k];
+		}
 	}
 
  	/**
@@ -121,8 +161,48 @@ public class Sorting {
 	 * </ul>
 	 * @param A the array to be sorted
 	 */
-	public static void mergesort(int A[]) {
+	public static <T extends Comparable<T>> void mergesort(T[] A) {
+		mergesortfunction(A, 0, A.length-1);
+	}
 
+	private static <T extends Comparable<T>> void mergesortfunction(T[] A, int firstIndex, int lastIndex){
+		if(firstIndex<lastIndex){
+			int middleIndex = (firstIndex + lastIndex) / 2;
+			mergesortfunction(A, firstIndex, middleIndex);
+			mergesortfunction(A, middleIndex + 1, lastIndex);
+			merge(A, firstIndex, middleIndex, lastIndex);
+		}
+	}
+
+	private static void merge(int[] A, int firstIndex, int middleIndex, int lastIndex){
+		int[] B = new int [lastIndex-firstIndex+1];
+		int i = firstIndex;//i itera il primo sottoarray
+		int j = middleIndex+1;//j itera il secondo sottoarray
+		int k = 0;//k itera l'array B
+
+		while(i<=middleIndex && j<=lastIndex){//il primo while va a ordinare gli elementi dei due sottoarray
+			if(A[i] <= A[j]){// in odine crescente, e si ferma quando uno dei due sottoarray non ha più elementi
+				B[k] = A[i];
+				i++;
+			}else{
+				B[k] = A[j];
+				j++;
+			}
+			k++;
+		}
+		while(i<=middleIndex){//gli altri due while finiscono il lavoro
+			B[k] = A[i];
+			k++;
+			i++;
+		}
+		while(j<=lastIndex){
+			B[k] = A[j];
+			k++;
+			j++;
+		}
+		for(k=0; k <lastIndex-firstIndex+1; k++){//il for trasferisce tutti gli elementi di B in A
+			A[firstIndex+k] = B[k];
+		}
 	}
 
 
@@ -138,7 +218,27 @@ public class Sorting {
 	 * @param <T> class of the object in the array
 	 */
 	public static <T extends Comparable<T>> void quicksort(T A[]) {
+		quicksortfunction(A, 0, A.length-1);
+	}
+	private static <T extends Comparable<T>> void quicksortfunction(T[] A, int firstIndex, int lastIndex){
+		if(firstIndex < lastIndex){
+			int middleIndex = partition(A, firstIndex, lastIndex);
+			quicksortfunction(A, firstIndex, middleIndex-1);
+			quicksortfunction(A, middleIndex+1, lastIndex);
+		}
+	}
 
+	private static int partition(int[] A, int p, int r){
+		T x = A[r];
+		int i = p;
+		for(int j = p; j<r; j++){
+			if(A[j].compareTo(x)<=0){
+				swap(A, i, j);
+				i++;
+			}
+		}
+		swap(A, i, r);
+		return i;
 	}
 
 	/**
@@ -152,7 +252,27 @@ public class Sorting {
 	 * @param A the array to be sorted
 	 */
 	public static void quicksort(int A[]) {
+		quicksortfunction(A, 0, A.length-1);
+	}
+	private static void quicksortfunction(int[] A, int firstIndex, int lastIndex){
+		if(firstIndex < lastIndex){
+			int middleIndex = partition(A, firstIndex, lastIndex);
+			quicksortfunction(A, firstIndex, middleIndex-1);
+			quicksortfunction(A, middleIndex+1, lastIndex);
+		}
+	}
 
+	private static int partition(int[] A, int p, int r){
+		int x = A[r];
+		int i = p;
+		for(int j = p; j<r; j++){
+			if(A[j]<=x){
+				swap(A, i, j);
+				i++;
+			}
+		}
+		swap(A, i, r);
+		return i;
 	}
 
 	/**
@@ -165,7 +285,22 @@ public class Sorting {
 	 * @param A the array to be sorted
 	 */
 	public static void countingsort(int A[]) {
-
+		int min = min(A), max = max(A), k = max - min + 1;
+		int[] B = new int [k];
+		for(int i=0; i<k; i++){
+			B[i] = 0;
+		}
+		for(int i=0; i<A.length; i++){
+			B[A[i]-min] ++;
+		}
+		int j=0;
+		for(int i=0; i<k; i++){
+			while(B[i]>0){
+				A[j] = i+min;
+				B[i]--;
+				j++;
+			}
+		}
 	}
 
 	/**
