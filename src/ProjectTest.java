@@ -15,7 +15,7 @@
  * The column W must be composed of double numbers.
  * Those three columns must be separated by a tab.
  * 
- * The program writes the reslt of the computation in the file output.txt.
+ * The program writes the result of the computation in the file output.txt.
  * 
  * To compile:
  * javac ProjectTest.java
@@ -62,8 +62,7 @@ public class ProjectTest {
                 pesi.add(p);
             }
 
-            WeightedGraph<Integer> g = 
-                new WeightedGraphAL<Integer>();
+            WeightedGraph<Integer> g = new WeightedGraphAL<Integer>();
 
             ArrayList<Vertex<Integer>> nodi = 
                 new ArrayList<Vertex<Integer>>(max+1);

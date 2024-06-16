@@ -19,5 +19,12 @@ public class WeightedEdge<D> extends Edge<D> {
 		super(source,dest);
 		this.weight = weight;
 	}
+
+	public void setWeight(double weight){
+		this.weight = weight;
+	}
+	public double getWeight(){
+		return this.weight;
+	}
 	
 }

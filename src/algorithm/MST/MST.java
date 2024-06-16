@@ -14,7 +14,7 @@ public interface MST<D> {
 	 * 
 	 * @param graph the weighted graph
 	 */
-	public <T extends Comparable<T>> void compute(WeightedGraph<D> graph);
+	public void compute(WeightedGraph<D> graph);
 	
 	/**
 	 * Returns the Minimum Spanning Tree (MST) of the weighted graph.

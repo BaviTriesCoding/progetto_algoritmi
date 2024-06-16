@@ -24,21 +24,25 @@ public class Kruskal<D> implements MST<D> {
 	 * 	
 	 * @param g the weighted graph
 	 */
-    public <T extends Comparable<T>> void compute(WeightedGraph<D> g) {
-		QuickFindSize<Vertex<D>> UF = new QuickFindSize<>();
+    public void compute(WeightedGraph<D> g) {
+		QuickUnionRank<Vertex<D>> UF = new QuickUnionRank<>();
+		Sorting<D> sort = new Sorting<>();
 		this.t = new WeightedGraphAL<>();
+
 		for(int i=0; i<g.vertexNum(); i++){
 			UF.makeSet(g.vertexes().get(i));
 		}
-		WeightedEdge<D>[] tmp = g.edges().toArray(new WeightedEdge [g.edgeNum()]);
-		Sorting.heapsort((T[]) Arrays.stream(tmp).toArray());
+		sort.heapsort(g.edges());
 		for(int i=0;i<g.edgeNum();i++){
-			QFnode<Vertex<D>> u = new QFnode<>(g.edges().get(i).source, null, null);
-			QFnode<Vertex<D>> v = new QFnode<>(g.edges().get(i).dest, null, null);
-			QFRset<Vertex<D>> Tu = (QFRset<Vertex<D>>) UF.find(u);
-			QFRset<Vertex<D>> Tv = (QFRset<Vertex<D>>) UF.find(v);
+			QURset singleton1 = new QURset();
+			QUnode<Vertex<D>> u = new QUnode<>(g.edges().get(i).source, singleton1);
+			QURset singleton2 = new QURset();
+			QUnode<Vertex<D>> v = new QUnode<>(g.edges().get(i).dest, singleton2);
+			QURset Tu = (QURset) UF.find(u);
+			QURset Tv = (QURset) UF.find(v);
 			if(!Tu.equals(Tv)){
 				this.t.addEdge(g.edges().get(i));
+				this.weight = this.weight + ((WeightedEdge<D>)g.edges().get(i)).weight;
 				UF.union(Tu, Tv);
 			}
 		}

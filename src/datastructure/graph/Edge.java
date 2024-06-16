@@ -21,4 +21,19 @@ public class Edge<D> {
 		this.source = source; this.dest = dest;
 	}
 
+	public void setSource(Vertex<D> source){
+		this.source = source;
+	}
+
+	public void setDest(Vertex<D> dest){
+		this.dest = dest;
+	}
+
+	public Vertex<D> getSource(){
+		return this.source;
+	}
+
+	public Vertex<D> getDest(){
+		return this.dest;
+	}
 }

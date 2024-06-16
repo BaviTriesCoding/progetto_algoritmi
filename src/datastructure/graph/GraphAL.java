@@ -92,6 +92,7 @@ public class GraphAL<D> implements Graph<D> {
 		int index = this.vertexes.indexOf(e.source);
 		if(index!=-1){
 			this.vertexes.get(index).adjac.add(e);
+			this.m = this.m + 1;
 		}
 	}
 	
