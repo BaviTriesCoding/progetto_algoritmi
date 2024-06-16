@@ -34,7 +34,7 @@ public class Kruskal<D> implements MST<D> {
 		}
 		WeightedEdge<D>[] tmp = new WeightedEdge[g.edgeNum()];
 		g.edges().toArray(tmp);
-		Sorting.heapsort(tmp);
+		Sorting.mergesort(tmp);
 		for(int i=0;i<g.edgeNum();i++) {
 			//System.out.println(hasUF.get(i));
 			QURset Tu = (QURset) UF.find(hasUF.get(tmp[i].source.data));

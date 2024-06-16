@@ -90,7 +90,10 @@ public class GraphAL<D> implements Graph<D> {
 	public void addEdge(Edge<D> e) {
 		LinkedList<Edge<D>> l = vertexes.get(((VertexAL<D>)e.source).index).adjac;
 		l.add(e);
-		this.m++;
+		LinkedList<Edge<D>> r = vertexes.get(((VertexAL<D>)e.dest).index).adjac;
+		Edge<D> tmp = new Edge<D>(e.dest, e.source);
+		r.add(tmp);
+		this.m = this.m + 2;
 	}
 	
 	public void removeVertex(Vertex<D> v) {
@@ -118,7 +121,13 @@ public class GraphAL<D> implements Graph<D> {
 	}
 
 	public void removeEdge(Edge<D> e) {
-		int index = this.vertexes.indexOf(e.source);
+		int index = this.vertexes.indexOf((VertexAL<D>)e.source);
+		if(index!=-1){
+			if(this.vertexes.get(index).adjac.remove(e)){
+				this.m = this.m - 1;
+			}
+		}
+		index = this.vertexes.indexOf((VertexAL<D>)e.dest);
 		if(index!=-1){
 			if(this.vertexes.get(index).adjac.remove(e)){
 				this.m = this.m - 1;
