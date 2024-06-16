@@ -1,4 +1,4 @@
-package src.datastructure.unionfind;
+package datastructure.unionfind;
 
 /**
  * Pleceholder class for a generic union find node.

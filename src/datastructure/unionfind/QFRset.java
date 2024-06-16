@@ -1,4 +1,4 @@
-package src.datastructure.unionfind;
+package datastructure.unionfind;
 
 /**
  * Generic set class for Quick Find with euristic on the size. 

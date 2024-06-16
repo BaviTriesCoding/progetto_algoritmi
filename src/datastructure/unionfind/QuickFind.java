@@ -1,4 +1,4 @@
-package src.datastructure.unionfind;
+package datastructure.unionfind;
 
 /**
  * Union find implementation based on Quick Find.
@@ -16,20 +16,30 @@ package src.datastructure.unionfind;
 public class QuickFind<D> implements UnionFind<D, QFnode<D>, QFset<D>> {
 
 	/**
-	 * Creates an union find structure following the QuickFind implementation
+	 * Creates a union find structure following the QuickFind implementation
 	 */	
 	public QuickFind() { }	
 
 	public QFnode<D> makeSet(D d) {
-		return null;
+		QFnode<D> node = new QFnode<>(d, null, null);
+		node.parent = new QFset<>(node, node);
+		return node;
 	}
 
 	public void union(QFset<D> s, QFset<D> t) {
-		
+		if(!s.equals(t)){
+			QFnode<D> temp = t.first;
+			while(!temp.equals(t.last)){
+				temp.parent = s;
+				s.last.next = temp;
+				s.last = temp;
+				temp = temp.next;
+			}
+		}
 	}
 	
 	public QFset<D> find(QFnode<D> n) {
-		return null;
+		return n.parent;
 	}
 
 }

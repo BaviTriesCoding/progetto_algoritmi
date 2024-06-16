@@ -27,8 +27,8 @@
 import java.io.*;
 import java.util.*;
 
-import src.algorithm.MST.*;
-import src.datastructure.graph.*;
+import algorithm.MST.*;
+import datastructure.graph.*;
 
 public class ProjectTest {
     

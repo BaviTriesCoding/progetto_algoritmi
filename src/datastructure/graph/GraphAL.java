@@ -1,4 +1,4 @@
-package src.datastructure.graph;
+package datastructure.graph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,23 +29,71 @@ public class GraphAL<D> implements Graph<D> {
 		vertexes = new ArrayList<VertexAL<D>>();
 	}
 
-	public int vertexNum() { }
+	public int vertexNum() {
+		return this.n;
+	}
 
-	public int edgeNum() { }
+	public int edgeNum() {
+		return this.m;
+	}
 
-	public ArrayList<Vertex<D>> vertexes() { }
+	public ArrayList<Vertex<D>> vertexes() {
+		ArrayList<Vertex<D>> list = new ArrayList<>();
+		for(int i=0; i<this.n; i++){
+			list.add(this.vertexes.get(i));
+		}
+		return list;
+	}
 	
-	public ArrayList<Edge<D>> edges() {	}
+	public ArrayList<Edge<D>> edges() {
+		ArrayList<Edge<D>> list = new ArrayList<>();
+		for(int i=0; i<this.n; i++){
+            list.addAll(vertexes.get(i).adjac);
+		}
+		return list;
+	}
 
-	public int outDegree(Vertex<D> v) {	}
+	public int outDegree(Vertex<D> v) {
+		int index = this.vertexes.indexOf(v);
+		return vertexes.get(index).adjac.size();
+	}
 	
-	public ArrayList<Edge<D>> outEdges(Vertex<D> v) { }
+	public ArrayList<Edge<D>> outEdges(Vertex<D> v) {
+		int index = this.vertexes.indexOf(v);
+		if(index!=-1){
+			return new ArrayList<>(this.vertexes.get(index).adjac);
+		}else{
+			return null;
+		}
+	}
 	
-	public Edge<D> areAdjacent(Vertex<D> x, Vertex<D> y) { }
+	public Edge<D> areAdjacent(Vertex<D> x, Vertex<D> y) {
+		int index = this.vertexes.indexOf(x);
+		if(index!=-1){
+			int i = this.vertexes.get(index).adjac.indexOf(y);
+			if (i != -1) {
+				return this.vertexes.get(index).adjac.get(i);
+			} else {
+				return null;
+			}
+		}else{
+			return null;
+		}
+	}
 
-	public Vertex<D> addVertex(D data) { }
+	public Vertex<D> addVertex(D data) {
+		VertexAL<D> v = new VertexAL<>(data, this.n);
+		this.vertexes.add(v);
+		this.n = this.n + 1;
+		return v;
+	}
 
-	public void addEdge(Edge<D> e) { }
+	public void addEdge(Edge<D> e) {
+		int index = this.vertexes.indexOf(e.source);
+		if(index!=-1){
+			this.vertexes.get(index).adjac.add(e);
+		}
+	}
 	
 	public void removeVertex(Vertex<D> v) {
 		VertexAL<D> vAL = (VertexAL<D>)v;
@@ -71,7 +119,14 @@ public class GraphAL<D> implements Graph<D> {
 		}
 	}
 
-	public void removeEdge(Edge<D> e) { }
+	public void removeEdge(Edge<D> e) {
+		int index = this.vertexes.indexOf(e.source);
+		if(index!=-1){
+			if(this.vertexes.get(index).adjac.remove(e)){
+				this.m = this.m - 1;
+			}
+		}
+	}
 
 	/**
 	 *  Returns the index of a vertex

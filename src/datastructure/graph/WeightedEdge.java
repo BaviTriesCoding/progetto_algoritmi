@@ -1,4 +1,4 @@
-package src.datastructure.graph;
+package datastructure.graph;
 
 /**
  * Generic edge of weighted graphs

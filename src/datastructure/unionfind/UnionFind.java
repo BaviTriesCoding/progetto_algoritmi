@@ -1,4 +1,4 @@
-package src.datastructure.unionfind;
+package datastructure.unionfind;
 
 /**
  * Generic union find interface.

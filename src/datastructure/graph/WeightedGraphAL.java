@@ -1,4 +1,4 @@
-package src.datastructure.graph;
+package datastructure.graph;
 
 /**
  * Implementation of weighted graphs using adjacent lists

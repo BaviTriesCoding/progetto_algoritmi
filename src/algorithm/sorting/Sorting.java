@@ -1,4 +1,7 @@
-package src.algorithm.sorting;
+package algorithm.sorting;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * This class contains various sorting algorithms
@@ -45,7 +48,7 @@ public class Sorting {
 	 * </ul>
 	 * @param A the array to be sorted
 	 */
-	public static void selectionsort(int A[]) {
+	/*public static void selectionsort(int A[]) {
 		for(int i=0; i<A.length-1; i++){
 			int m = i;
 			for(int j=i+1; j<A.length; j++){
@@ -55,7 +58,7 @@ public class Sorting {
 			}
 			if(m!=i){swap(A, i, m);}
 		}
-	}
+	}*/
 
 	/**
 	 * Sorts the specified array according to the ordering induced by the compareTo() method in O(n<sup>2</sup>)
@@ -71,7 +74,7 @@ public class Sorting {
 	public static <T extends Comparable<T>> void insertionsort(T A[]) {
 		for(int i=1; i<A.length; i++){
 			int j=i;
-			while(j>1 && A[j]..compareTo(A[j-1])<0){
+			while(j>1 && A[j].compareTo(A[j-1])<0){
 				swap(A, j, j-1);
 				j--;
 			}
@@ -88,7 +91,7 @@ public class Sorting {
 	 * </ul>
 	 * @param A the array to be sorted
 	 */
-	public static void insertionsort(int A[]) {
+	/*public static void insertionsort(int A[]) {
 		for(int i=1; i<A.length; i++){
 			int j=i;
 			while(j>1 && A[j] < A[j-1]){
@@ -96,7 +99,7 @@ public class Sorting {
 				j--;
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * Sorts the specified array according to the ordering induced by the compareTo() method in &Theta;(nlogn)
@@ -122,8 +125,8 @@ public class Sorting {
 	}
 
 	private static <T extends Comparable<T>> void merge(T[] A, int firstIndex, int middleIndex, int lastIndex){
-		T[] B = new T [lastIndex-firstIndex+1];
-		int i = firstIndex;//i itera il primo sottoarray
+        T[] B = (T[]) new Comparable[lastIndex-firstIndex+1];
+        int i = firstIndex;//i itera il primo sottoarray
 		int j = middleIndex+1;//j itera il secondo sottoarray
 		int k = 0;//k itera l'array B
 
@@ -161,11 +164,11 @@ public class Sorting {
 	 * </ul>
 	 * @param A the array to be sorted
 	 */
-	public static <T extends Comparable<T>> void mergesort(T[] A) {
+	/*public static void mergesort(int[] A) {
 		mergesortfunction(A, 0, A.length-1);
 	}
 
-	private static <T extends Comparable<T>> void mergesortfunction(T[] A, int firstIndex, int lastIndex){
+	private static void mergesortfunction(int[] A, int firstIndex, int lastIndex){
 		if(firstIndex<lastIndex){
 			int middleIndex = (firstIndex + lastIndex) / 2;
 			mergesortfunction(A, firstIndex, middleIndex);
@@ -203,7 +206,7 @@ public class Sorting {
 		for(k=0; k <lastIndex-firstIndex+1; k++){//il for trasferisce tutti gli elementi di B in A
 			A[firstIndex+k] = B[k];
 		}
-	}
+	}*/
 
 
 	/**
@@ -227,8 +230,7 @@ public class Sorting {
 			quicksortfunction(A, middleIndex+1, lastIndex);
 		}
 	}
-
-	private static int partition(int[] A, int p, int r){
+	private static <T extends Comparable<T>> int partition(T[] A, int p, int r){
 		T x = A[r];
 		int i = p;
 		for(int j = p; j<r; j++){
@@ -251,7 +253,7 @@ public class Sorting {
 	 * </ul>
 	 * @param A the array to be sorted
 	 */
-	public static void quicksort(int A[]) {
+	/*public static void quicksort(int A[]) {
 		quicksortfunction(A, 0, A.length-1);
 	}
 	private static void quicksortfunction(int[] A, int firstIndex, int lastIndex){
@@ -261,7 +263,6 @@ public class Sorting {
 			quicksortfunction(A, middleIndex+1, lastIndex);
 		}
 	}
-
 	private static int partition(int[] A, int p, int r){
 		int x = A[r];
 		int i = p;
@@ -273,7 +274,7 @@ public class Sorting {
 		}
 		swap(A, i, r);
 		return i;
-	}
+	}*/
 
 	/**
 	 * Sorts the specified array into ascending numerical order in &Theta;(n+k)
@@ -284,7 +285,7 @@ public class Sorting {
 	 * </ul>
 	 * @param A the array to be sorted
 	 */
-	public static void countingsort(int A[]) {
+	/*public static void countingsort(int A[]) {
 		int min = min(A), max = max(A), k = max - min + 1;
 		int[] B = new int [k];
 		for(int i=0; i<k; i++){
@@ -301,7 +302,7 @@ public class Sorting {
 				j++;
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * Sorts the specified array according to the ordering induced by the compareTo() method in &Theta;(nlogn)
@@ -315,7 +316,7 @@ public class Sorting {
 	 * @param <T> class of the object in the array
 	 */
 		
-	public static <T extends Comparable<T>> void heapsort(T A[]) {
+	public static <T extends Comparable<T>> void heapsort(T[] A) {
 		heapify(A, A.length - 1, 0);
 		for (int c = (A.length - 1); c > 0; c--) {
 			T k = findmax(A);
@@ -324,7 +325,7 @@ public class Sorting {
 		}
 	}
 	
-	private static <T extends Comparable<T>> void heapify(T A[], int n, int i) {
+	private static <T extends Comparable<T>> void heapify(T[] A, int n, int i) {
 		if (i >= n) return;
 		heapify(A, n, left(i));
 		heapify(A, n, right(i));
@@ -339,7 +340,7 @@ public class Sorting {
 		return ( 2*i + 2 );
 	}
 			
-	private static <T extends Comparable<T>> void fixheap(T A[], int c, int i) {
+	private static <T extends Comparable<T>> void fixheap(T[] A, int c, int i) {
 		int l = left(i), r = right(i);
 		if (l > c) return;
 		int max = l;
@@ -351,11 +352,11 @@ public class Sorting {
 		}
 	}
 	
-	private static <T extends Comparable<T>> T findmax(T A[]) {
+	private static <T extends Comparable<T>> T findmax(T[] A) {
 		return A[0];
 	}
 	
-	private static <T extends Comparable<T>> void deletemax(T A[], int c) {
+	private static <T extends Comparable<T>> void deletemax(T[] A, int c) {
 		if (c <= 0) return;
 		A[0] = A[c];
 		c--;

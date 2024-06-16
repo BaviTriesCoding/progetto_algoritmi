@@ -1,7 +1,6 @@
-package src.datastructure.graph;
+package datastructure.graph;
 
 import java.util.LinkedList;
-
 
 /**
  * Vertex of graphs implemented using adjacent lists

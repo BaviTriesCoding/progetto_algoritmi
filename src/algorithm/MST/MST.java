@@ -1,6 +1,6 @@
-package src.algorithm.MST;
+package algorithm.MST;
 
-import src.datastructure.graph.WeightedGraph;
+import datastructure.graph.WeightedGraph;
 
 /**
  * This interface contains the methods that must be implemented by a class that computes the Minimum Spanning Tree (MST) of a weighted graph.
@@ -14,7 +14,7 @@ public interface MST<D> {
 	 * 
 	 * @param graph the weighted graph
 	 */
-	public void compute(WeightedGraph<D> graph);
+	public <T extends Comparable<T>> void compute(WeightedGraph<D> graph);
 	
 	/**
 	 * Returns the Minimum Spanning Tree (MST) of the weighted graph.

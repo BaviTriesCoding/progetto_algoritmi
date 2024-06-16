@@ -1,4 +1,4 @@
-package src.datastructure.graph;
+package datastructure.graph;
 
 /**
  * Generic vertex of graphs

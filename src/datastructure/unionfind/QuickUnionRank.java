@@ -1,4 +1,4 @@
-package src.datastructure.unionfind;
+package datastructure.unionfind;
 
 /**
  * Union find implementation based on Quick Union with heuristic on the rank.
@@ -15,14 +15,23 @@ public class QuickUnionRank<D> extends QuickUnion<D> {
 	 * Creates an union find structure following the QuickUnion implementation
 	 * with heuristic on the rank
 	 */
-	public QuickUnionRank() { }	
-
+	public QuickUnionRank() {}
 	public QUnode<D> makeSet(D d) {
-		return null;
+		QURset singleton = new QURset();
+		QUnode<D> node = new QUnode<>(d, singleton);
+		return node;
 	}
 
 	public void union(QUset s, QUset t) {
-
+		if(s.equals(t)){return;}
+		if(((QURset)s).rank == ((QURset)t).rank){
+			super.union(s,t);
+			((QURset) s).rank++;
+		}else if(((QURset)s).rank > ((QURset)t).rank){
+			super.union(s, t);
+		}else{
+			super.union(t,s);
+		}
 	}
 
 }

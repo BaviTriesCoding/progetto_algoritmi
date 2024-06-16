@@ -1,4 +1,4 @@
-package src.datastructure.unionfind;
+package datastructure.unionfind;
 
 /**
  * Union find implementation based on Quick Union.
@@ -21,15 +21,23 @@ public class QuickUnion<D> implements UnionFind<D, QUnode<D>, QUset> {
 	public QuickUnion() { }	
 
 	public QUnode<D> makeSet(D d) {
-		return null;
+		QUset singleton = new QUset();
+		QUnode<D> node = new QUnode<>(d, singleton);
+		return node;
 	}
 
 	public void union(QUset s, QUset t) {
-
+		if(!s.equals(t) && s.equals(s.parent) && t.equals(t.parent)){
+			t.parent = s;
+		}
 	}
 	
 	public QUset find(QUnode<D> n) {
-		return null;
+		QUset temp = n.set;
+		while(!temp.equals(temp.parent)){
+			temp = temp.parent;
+		}
+		return temp;
 	}
 
 }

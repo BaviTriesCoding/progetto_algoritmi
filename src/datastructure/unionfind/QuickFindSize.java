@@ -1,4 +1,4 @@
-package src.datastructure.unionfind;
+package datastructure.unionfind;
 
 import java.util.*;
 
@@ -20,11 +20,21 @@ public class QuickFindSize<D> extends QuickFind<D> {
 	public QuickFindSize() { }	
 
 	public QFnode<D> makeSet(D d) {
-		return null;
+		QFnode<D> node = new QFnode<>(d, null, null);
+		node.parent = new QFRset<>(node, node, 1);
+		return node;
 	}
 
 	public void union(QFset<D> s, QFset<D> t) {
-
+		if(!s.equals(t)){
+			if(((QFRset)s).size >= ((QFRset)t).size){
+				super.union(s, t);
+				((QFRset)s).size = ((QFRset)s).size + ((QFRset)t).size;
+			}else{
+				super.union(t, s);
+				((QFRset)t).size = ((QFRset)t).size + ((QFRset)s).size;
+			}
+		}
 	}
 
 }
