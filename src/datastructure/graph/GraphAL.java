@@ -54,8 +54,7 @@ public class GraphAL<D> implements Graph<D> {
 	}
 
 	public int outDegree(Vertex<D> v) {
-		int index = this.vertexes.indexOf(v);
-		return vertexes.get(index).adjac.size();
+		return ((VertexAL<D>) v).adjac.size();
 	}
 	
 	public ArrayList<Edge<D>> outEdges(Vertex<D> v) {
@@ -89,11 +88,9 @@ public class GraphAL<D> implements Graph<D> {
 	}
 
 	public void addEdge(Edge<D> e) {
-		int index = this.vertexes.indexOf(e.source);
-		if(index!=-1){
-			this.vertexes.get(index).adjac.add(e);
-			this.m = this.m + 1;
-		}
+		LinkedList<Edge<D>> l = vertexes.get(((VertexAL<D>)e.source).index).adjac;
+		l.add(e);
+		this.m++;
 	}
 	
 	public void removeVertex(Vertex<D> v) {

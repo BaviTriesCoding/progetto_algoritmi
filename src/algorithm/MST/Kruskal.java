@@ -3,9 +3,7 @@ package algorithm.MST;
 import datastructure.graph.*;
 import datastructure.unionfind.*;
 import algorithm.sorting.*;
-
-import java.util.Arrays;
-
+import java.util.HashMap;
 /**
  * This class contains the implementation of the Kruskal's algorithm for the construction of a Minimum Spanning Tree (MST) of a weighted graph.
  * 
@@ -26,24 +24,26 @@ public class Kruskal<D> implements MST<D> {
 	 */
     public void compute(WeightedGraph<D> g) {
 		QuickUnionRank<Vertex<D>> UF = new QuickUnionRank<>();
-		Sorting<D> sort = new Sorting<>();
+		HashMap<D,QUnode<Vertex<D>>> hasUF = new HashMap<>();
 		this.t = new WeightedGraphAL<>();
+		this.weight = 0;
 
 		for(int i=0; i<g.vertexNum(); i++){
-			UF.makeSet(g.vertexes().get(i));
+			hasUF.put(g.vertexes().get(i).data, UF.makeSet(g.vertexes().get(i)));
+			this.t.addVertex(g.vertexes().get(i).data);
 		}
-		sort.heapsort(g.edges());
-		for(int i=0;i<g.edgeNum();i++){
-			QURset singleton1 = new QURset();
-			QUnode<Vertex<D>> u = new QUnode<>(g.edges().get(i).source, singleton1);
-			QURset singleton2 = new QURset();
-			QUnode<Vertex<D>> v = new QUnode<>(g.edges().get(i).dest, singleton2);
-			QURset Tu = (QURset) UF.find(u);
-			QURset Tv = (QURset) UF.find(v);
-			if(!Tu.equals(Tv)){
-				this.t.addEdge(g.edges().get(i));
-				this.weight = this.weight + ((WeightedEdge<D>)g.edges().get(i)).weight;
+		WeightedEdge<D>[] tmp = new WeightedEdge[g.edgeNum()];
+		g.edges().toArray(tmp);
+		Sorting.heapsort(tmp);
+		for(int i=0;i<g.edgeNum();i++) {
+			//System.out.println(hasUF.get(i));
+			QURset Tu = (QURset) UF.find(hasUF.get(tmp[i].source.data));
+			QURset Tv = (QURset) UF.find(hasUF.get(tmp[i].dest.data));
+			if (!Tu.equals(Tv)) {
+				this.t.addEdge(tmp[i]);
+				this.weight += tmp[i].weight;
 				UF.union(Tu, Tv);
+
 			}
 		}
     }

@@ -4,7 +4,7 @@ package datastructure.graph;
  * Generic edge of weighted graphs
  * @param <D> type of the data object in the graph vertexes
  */
-public class WeightedEdge<D> extends Edge<D> {
+public class WeightedEdge<D> extends Edge<D> implements Comparable<WeightedEdge<D>> {
 
 	/** vertex weight */
 	public double weight;
@@ -20,11 +20,9 @@ public class WeightedEdge<D> extends Edge<D> {
 		this.weight = weight;
 	}
 
-	public void setWeight(double weight){
-		this.weight = weight;
-	}
-	public double getWeight(){
-		return this.weight;
+	@Override
+	public int compareTo(WeightedEdge<D> G) {
+		return Double.compare(this.weight, G.weight);
 	}
 	
 }
